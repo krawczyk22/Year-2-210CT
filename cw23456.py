@@ -1,4 +1,9 @@
-# Defining the class Node (the node with connected to nodes)
+'''The programme implements a graph and lets the used print the nodes,
+find a bath between two nodes, check if the graph is strongly connected,
+implement the Deapth First Search, Breadth First Search and Dijkstra
+algorithms. The programme provides a menu for its users. The programme
+has been created by implementing pseudocodes'''
+
 class Node(object):
     def __init__(self, node):
         self.node = node
@@ -14,19 +19,17 @@ class Node(object):
             connection.distance.append(distance)
         else: print("The value is not an instance of the class")
 
-# Defining the class Grahp (nodes are stored in a dictionary)
 class Graph(object):
   def __init__(self):
     self.nodes = {}
     self.distances = {}
 
-# Function that adds nodes to the graph
   def add_to_graph(self, nodes):
     for vertex in nodes:
       self.nodes[vertex.node] = vertex.connections          
       self.distances[vertex.node] = vertex.distance
       
-# Function that return the graph
+  # Function that returns the whole graph (its nodes, connection and corresponding to them distances)
   def adjacencyList(self):
     if len(self.nodes) >= 1:
       string = "Node\tAdjacency List\tCorresponding distances\n"
@@ -36,30 +39,29 @@ class Graph(object):
     else:
       return dict()  
           
-# Function returning the list of the nodes used in the basecase line 204
+ #Function that returns a list of the nodes used in the basecase line 211
   def listOfTheNodes(self):
     listOfNodes=[]
     for key in self.nodes.keys():
       listOfNodes.append(key)
     return listOfNodes
       
-# Function finding a path between two nodes (v - the first node, w - the last node)
-  def isPath(self, v, w, path=None):
+  #Function that returns the path traversed between two nodes
+  def isPath(self, start, finish, path=None):
     if path == None:
       path=[]
     graph=self.nodes
-    path = path + [v]
-    if v==w:
+    path = path + [start]
+    if start==finish:
       return path
-    if v not in graph:
+    if start not in graph:
       return False
-    for node in graph[v]:
+    for node in graph[start]:
       if node not in path:
-        extendPath = self.isPath(node, w, path)
+        extendPath = self.isPath(node, finish, path)
         if extendPath: return extendPath
     return False
     
-# Implementation of the DFS 
   def depthFirstSearch(self, vertex):
     Stack=[]
     visited=[]
@@ -74,7 +76,6 @@ class Graph(object):
           Stack.append(node)
     return visited
     
-# Implementation of the BFS
   def breadthFirstSearch(self, vertex):
     Queue=[]
     visited=[]
@@ -89,7 +90,7 @@ class Graph(object):
           Queue.append(node)
     return visited 
 
-# Function indieating if a graph is strongly connected
+  #Function tah indicated of the graph is strongly connected
   def isConnected(self):
     for x in self.nodes.keys():
       for y in self.nodes.keys():
@@ -97,37 +98,37 @@ class Graph(object):
           return("No")
     return("Yes")
   
-# Dijkstra algorithm
   def dijkstra(self, source, destination):
     current = source
     dictionary = {}
     for key in self.nodes.keys():
-      dictionary[key] = 9999999999
-    dictionary[source] = 0
+      dictionary[key] = float("inf")  # defining the traversal weight of the nodes as infinity
+    dictionary[source] = 0     # the traversal weight of the starting node is 0
     visited=[] 
+    
     while current != destination:
       index = 0
-      returnpath = []
       for vertex in self.nodes[current]: 
-        if dictionary[current] + self.distances[current][index] < dictionary[vertex]:
-          dictionary[vertex] = dictionary[current] + self.distances[current][index]
+        if dictionary[current] + self.distances[current][index] < dictionary[vertex]:  
+          dictionary[vertex] = dictionary[current] + self.distances[current][index]    #updating the traversal values
           index+=1
         else: index+=1
       visited.append(current)
-      minimum = 9999999999
+      minimum = float("inf")
       for node in dictionary:
         if (node not in visited) and (dictionary[node] < minimum):
           current = node
           minimum = dictionary[node]
-    print(str(dictionary[destination]))
+          
+    print(str(dictionary[destination]))    #returning the weight of the path traversed
       
 # Executing the class functions
 def graph(g):
   print(str(g.adjacencyList()))
 
-def path(g, v, w):
+def path(g, start, finish):
   f = open("path.txt", "w+")
-  f.write(str(g.isPath(v, w)))
+  f.write(str(g.isPath(start, finish)))
   f.close
   
 def connected(g):
@@ -146,72 +147,81 @@ def bfs(g,v):
 def dijkstra(source, destination):
   g.dijkstra(source, destination)
   
-# Defining the nodes
-a = Node(1)
-b = Node(2)
-c = Node(3)
-d = Node(4)
-e = Node(5)
-f = Node(6)
-h = Node(7)
-i = Node(8)
-
-# Connecting the nodes
-a.connection_insert(b, 8)
-c.connection_insert(a, 1)
-d.connection_insert(e, 2)
-d.connection_insert(a, 6)
-e.connection_insert(f, 3)
-c.connection_insert(h, 3)
-d.connection_insert(h, 3)
-i.connection_insert(b, 4)
-i.connection_insert(h, 6)
-i.connection_insert(f, 3)
-
-#Definig the graph
-g = Graph()
-g.add_to_graph([a,b,c,d,e,f,h,i])
-
-basecase=0
-while basecase ==0:
-  print("What do you want to do?")
-  print("1. Print the graph")
-  print("2. Find a path between two nodes")
-  print("3. Check if the graph is strongly connected")
-  print("4. Do the BFS and DFS")
-  print("5. Do the Dijkstra algorithm")
-  print("6. Exit")
+if __name__ == '__main__':  
   
-  try:
-    answer=int(input(""))
-  except ValueError: 
-    print("You cannot enter no-integer values")
-    answer=7
-    
-  if answer == 1:
-    graph(g)
-  elif answer == 2:
+  # Defining the nodes
+  a = Node(1)
+  b = Node(2)
+  c = Node(3)
+  d = Node(4)
+  e = Node(5)
+  f = Node(6)
+  h = Node(7)
+  i = Node(8)
+
+  # Connecting the nodes andesigning weights
+  a.connection_insert(b, 8)
+  c.connection_insert(a, 1)
+  d.connection_insert(e, 2)
+  d.connection_insert(a, 6)
+  e.connection_insert(f, 3)
+  c.connection_insert(h, 3)
+  d.connection_insert(h, 3)
+  i.connection_insert(b, 4)
+  i.connection_insert(h, 6)
+  i.connection_insert(f, 3)
+
+  g = Graph()
+  g.add_to_graph([a,b,c,d,e,f,h,i])
+
+  basecase=0
+
+  #Implementation of the menu
+  while basecase ==0:
+    print("What do you want to do?")
+    print("1. Print the graph")
+    print("2. Find a path between two nodes")
+    print("3. Check if the graph is strongly connected")
+    print("4. Do the BFS and DFS")
+    print("5. Do the Dijkstra algorithm")
+    print("6. Exit")
+
     try:
-      firstVetex=int(input("What is the starting node? "))
-      secondVetex=int(input("What is the finishing node? "))
-      path(g, firstVetex, secondVetex)
-    except ValueError: print("The value has to be an integer")
-  elif answer == 3:
-    connected(g)
-  elif answer == 4:
-    try:
-      startVertex=int(input("What is the first vertex? "))
-      if startVertex in g.listOfTheNodes():
-        dfs(g, startVertex)
-        bfs(g, startVertex)
-      else: print("Such value does not exist in the graph4")
-    except ValueError: print("The value has to be an integer")
-  elif answer == 5:
-    try:
-      sourceDijkstra=int(input("What is the source node? "))
-      destinationDijkstra=int(input("What is the destination node? "))
-      dijkstra(sourceDijkstra, destinationDijkstra)
-    except ValueError: print("The value has to be an integer")
-  elif answer == 6:
-    basecase=1
-  else: print("There is no such option")    
+      answer=int(input(""))
+    except ValueError: 
+      print("You cannot enter no-integer values")
+      answer=7
+
+    if answer == 1:
+      graph(g)
+
+    elif answer == 2:
+      try:
+        firstVetex=int(input("What is the starting node? "))
+        secondVetex=int(input("What is the finishing node? "))
+        path(g, firstVetex, secondVetex)
+      except ValueError: print("The value has to be an integer")
+
+    elif answer == 3:
+      connected(g)
+
+    elif answer == 4:
+      try:
+        startVertex=int(input("What is the first vertex? "))
+        if startVertex in g.listOfTheNodes():
+          dfs(g, startVertex)
+          bfs(g, startVertex)
+        else: print("Such value does not exist in the graph4")
+      except ValueError: print("The value has to be an integer")
+
+    elif answer == 5:
+      try:
+        sourceDijkstra=int(input("What is the source node? "))
+        destinationDijkstra=int(input("What is the destination node? "))
+        dijkstra(sourceDijkstra, destinationDijkstra)
+      except ValueError: print("The value has to be an integer")
+
+    elif answer == 6:
+      basecase=1
+
+    else: print("There is no such option")    
