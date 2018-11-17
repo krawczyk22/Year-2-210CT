@@ -1,10 +1,11 @@
-'''The programme implements a Binary Search Tree that hoads English words.
+'''The programme implements a Binary Search Tree that holds English words.
 The programme reads words from a text file, determinates their frequencies,
-prints the tree in pre-order, deleted a node and finds words and prints the 
-traversed path as well as indicated if the word exists in the tree.
+prints the tree in the pre-order, deletes nodes and finds words and prints the 
+traversed path as well as indicates if the word exists in the tree.
 The programme provides a menu for its users. The code has been created
 based on the code provided on the Coventry University Moodle website, and 
-changed respectively. The programmehas been created by implementing pseudocodes'''
+changed respectively. The programme has been created by implementing 
+pseudocodes as well'''
 
 class BinTreeNode(object):
   def __init__(self, value):
@@ -45,7 +46,7 @@ def pre_order(tree):
   if(tree.right!=None):
       pre_order(tree.right)
         
-#Function tam returns the path traversed while searching for the word along with the information if the word is found
+#Function that returns the path traversed while searching for the word along with the information if the word is found
 def tree_find(tree, target):
   path = "The path traversed is: "
   tempTree = tree
@@ -84,9 +85,9 @@ def delete_node(tree, value):
         tree = None
         return temp 
       else:
-        temp = minValue(tree.right)  #Finding the minimum value in the subtree
-        tree.value = temp.value    #Assigning the value to the current value in the tree
-        tree.right = delete_node(tree.right , temp.value)      #deleting minimum found value from the subtree
+        temp = minValue(tree.right)  #finding the minimum value in the subtree
+        tree.value = temp.value    #assigning the value to the current value in the tree
+        tree.right = delete_node(tree.right , temp.value)      #deleting the minimum found value from the subtree
     return tree
     
 if __name__ == '__main__':
