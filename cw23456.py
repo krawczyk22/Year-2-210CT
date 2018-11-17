@@ -1,8 +1,8 @@
-'''The programme implements a graph and lets the used print the nodes,
-find a bath between two nodes, check if the graph is strongly connected,
+'''The programme implements a graph, lets the users print the nodes,
+find a path between two nodes, check if the graph is strongly connected,
 implement the Deapth First Search, Breadth First Search and Dijkstra
 algorithms. The programme provides a menu for its users. The programme
-has been created by implementing pseudocodes'''
+has been created by implementing pseudocodes as well'''
 
 class Node(object):
     def __init__(self, node):
@@ -29,7 +29,7 @@ class Graph(object):
       self.nodes[vertex.node] = vertex.connections          
       self.distances[vertex.node] = vertex.distance
       
-  # Function that returns the whole graph (its nodes, connection and corresponding to them distances)
+  # Function that returns the whole graph (its nodes, connections and corresponding to them distances)
   def adjacencyList(self):
     if len(self.nodes) >= 1:
       string = "Node\tAdjacency List\tCorresponding distances\n"
@@ -39,7 +39,7 @@ class Graph(object):
     else:
       return dict()  
           
- #Function that returns a list of the nodes used in the basecase line 211
+ #Function that returns a list of the nodes used in the menu and in the isConnected class function
   def listOfTheNodes(self):
     listOfNodes=[]
     for key in self.nodes.keys():
@@ -90,14 +90,16 @@ class Graph(object):
           Queue.append(node)
     return visited 
 
-  #Function tah indicated of the graph is strongly connected
+  #Function that indicates if the graph is strongly connected
   def isConnected(self):
-    for x in self.nodes.keys():
-      for y in self.nodes.keys():
-        if self.isPath(x,y) == False:
-          return("No")
-    return("Yes")
-  
+    NodesInTheGraph=self.listOfTheNodes()
+    NumberOfVisitedNodes=len(self.breadthFirstSearch(NodesInTheGraph[0]))
+    NumberOfAllNodes=len(NodesInTheGraph)
+    if NumberOfAllNodes == NumberOfVisitedNodes:
+      return("Yes")
+    else:
+      return("No")
+    
   def dijkstra(self, source, destination):
     current = source
     dictionary = {}
@@ -159,7 +161,7 @@ if __name__ == '__main__':
   h = Node(7)
   i = Node(8)
 
-  # Connecting the nodes andesigning weights
+  # Defining the edges and assigning their weights
   a.connection_insert(b, 8)
   c.connection_insert(a, 1)
   d.connection_insert(e, 2)
