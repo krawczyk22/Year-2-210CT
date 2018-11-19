@@ -103,8 +103,10 @@ class Graph(object):
   def dijkstra(self, source, destination):
     current = source
     dictionary = {}
+    previousNodes = {}
     for key in self.nodes.keys():
       dictionary[key] = float("inf")  # defining the traversal weight of the nodes as infinity
+      previousNodes[key] = []
     dictionary[source] = 0     # the traversal weight of the starting node is 0
     visited=[] 
     
@@ -113,6 +115,7 @@ class Graph(object):
       for vertex in self.nodes[current]: 
         if dictionary[current] + self.distances[current][index] < dictionary[vertex]:  
           dictionary[vertex] = dictionary[current] + self.distances[current][index]    #updating the traversal values
+          previousNodes[vertex] = previousNodes[current] + [current]     #keeping track on the previous node
           index+=1
         else: index+=1
       visited.append(current)
@@ -121,8 +124,10 @@ class Graph(object):
         if (node not in visited) and (dictionary[node] < minimum):
           current = node
           minimum = dictionary[node]
-          
-    print(str(dictionary[destination]))    #returning the weight of the path traversed
+    previousNodes[destination] += [destination]
+    
+    print("The smallest weight is: " + str(dictionary[destination]) + 
+          "\nThe path traversed is: " + str(previousNodes[destination]))   #returning the weight of the path traversed
       
 # Executing the class functions
 def graph(g):
