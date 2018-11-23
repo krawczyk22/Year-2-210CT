@@ -2,31 +2,30 @@
 The programme reads words from a text file, determinates their frequencies,
 prints the tree in the pre-order, deletes nodes and finds words and prints the 
 traversed path as well as indicates if the word exists in the tree.
-The programme provides a menu for its users. The code has been created
-based on the code provided on the Coventry University Moodle website, and 
-changed respectively. The programme has been created by implementing 
-pseudocodes as well'''
+The programme provides a menu for its users.'''
+
+#[Source code].http://cumoodle.coventry.ac.uk/
 
 class BinTreeNode(object):
   def __init__(self, value):
-      self.value=value
-      self.left=None
-      self.right=None
+    self.value=value
+    self.left=None
+    self.right=None
               
 def tree_insert(tree, item):
   if tree==None:
-      tree=BinTreeNode(item)
+    tree=BinTreeNode(item)
   else:
-      if(item < tree.value):
-          if(tree.left==None):
-              tree.left=BinTreeNode(item)
-          else:
-              tree_insert(tree.left,item)
+    if(item < tree.value):
+      if(tree.left==None):
+        tree.left=BinTreeNode(item)
       else:
-          if(tree.right==None):
-              tree.right=BinTreeNode(item)
-          else:
-              tree_insert(tree.right,item)
+        tree_insert(tree.left,item)
+    else:
+      if(tree.right==None):
+        tree.right=BinTreeNode(item)
+      else:
+        tree_insert(tree.right,item)
   return tree
 
 #Function that returns the words in a string and their occurrences
@@ -63,18 +62,20 @@ def tree_find(tree, target):
   return(path + "\nno")
 
 def minValue(tree): 
-    while(tree.left is not None): 
-        tree = tree.left 
-    return tree  
+  while(tree.left is not None): 
+    tree = tree.left 
+  return tree  
+  
+#[Source code]. https://www.geeksforgeeks.org/binary-search-tree-set-2-delete/
   
 def delete_node(tree, value):
   if tree is None: 
         return tree
   else:
     if (value < tree.value): 
-          tree.left = delete_node(tree.left, value) 
-    elif(value > tree.value): 
-          tree.right = delete_node(tree.right, value) 
+      tree.left = delete_node(tree.left, value) 
+    elif (value > tree.value):
+      tree.right = delete_node(tree.right, value) 
     else:
       if tree.left is None : 
         temp = tree.right  #storing the right subtree in a temporary variable
@@ -140,3 +141,17 @@ if __name__ == '__main__':
       basecase=1
       
     else: print("There is no such option")
+      
+'''********************************************************************
+* Title: Binary Search Tree in Python
+* Author: Coventry University
+* Date: 2018
+* Availability: http://cumoodle.coventry.ac.uk/
+***********************************************************************'''
+
+'''********************************************************************
+* Title: Binary Search Tree | Set 2 (Delete)
+* Author: Geeksforgeeks
+* Date: 2018
+* Availability: https://www.geeksforgeeks.org/binary-search-tree-set-2-delete/
+***********************************************************************'''
