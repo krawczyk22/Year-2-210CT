@@ -1,23 +1,25 @@
 '''The programme implements a graph, lets the users print the nodes,
 find a path between two nodes, check if the graph is strongly connected,
 implement the Deapth First Search, Breadth First Search and Dijkstra
-algorithms. The programme provides a menu for its users. The programme
-has been created by implementing pseudocodes as well'''
+algorithms. The programme provides a menu for its users.'''
+
+#[Source code]. https://gist.github.com/anirudhjayaraman/272e920079fd8cea97f81487ef1e78a3
 
 class Node(object):
-    def __init__(self, node):
-        self.node = node
-        self.connections = []
-        self.distance = []
+  def __init__(self, node):
+    self.node = node
+    self.connections = []
+    self.distance = []
         
-    def connection_insert(self, connection, distance):
-        if isinstance(connection, Node):
-          if connection.node not in self.connections:
-            self.connections.append(connection.node)
-            connection.connections.append(self.node)
-            self.distance.append(distance)
-            connection.distance.append(distance)
-        else: print("The value is not an instance of the class")
+  def connection_insert(self, connection, distance):
+    if isinstance(connection, Node):
+      if connection.node not in self.connections:
+        self.connections.append(connection.node)
+        connection.connections.append(self.node)
+        self.distance.append(distance)
+        connection.distance.append(distance)
+      else: 
+        print("The value is not an instance of the class")
 
 class Graph(object):
   def __init__(self):
@@ -44,8 +46,8 @@ class Graph(object):
     listOfNodes=[]
     for key in self.nodes.keys():
       listOfNodes.append(key)
-    return listOfNodes
-      
+    return listOfNodes  
+    
   #Function that returns the path traversed between two nodes
   def isPath(self, start, finish, path=None):
     if path == None:
@@ -218,7 +220,7 @@ if __name__ == '__main__':
         if startVertex in g.listOfTheNodes():
           dfs(g, startVertex)
           bfs(g, startVertex)
-        else: print("Such value does not exist in the graph4")
+        else: print("Such value does not exist in the graph")
       except ValueError: print("The value has to be an integer")
 
     elif answer == 5:
@@ -231,4 +233,18 @@ if __name__ == '__main__':
     elif answer == 6:
       basecase=1
 
-    else: print("There is no such option")    
+    else: print("There is no such option")
+      
+'''********************************************************************
+* Title: Implementing Undirected Graphs in Python
+* Author: anirudhjayaraman
+* Date: 2016
+* Availability: https://gist.github.com/anirudhjayaraman/272e920079fd8cea97f81487ef1e78a3
+***********************************************************************'''
+
+'''********************************************************************
+* Title: Week 7 - More Graphs
+* Author: Diana Hintea
+* Date: 2018
+* Availability: http://cumoodle.coventry.ac.uk/
+***********************************************************************''' 
