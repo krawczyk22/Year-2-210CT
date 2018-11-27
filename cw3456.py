@@ -4,12 +4,13 @@ implement the Deapth First Search, Breadth First Search and Dijkstra
 algorithms. The programme provides a menu for its users.'''
 
 #[Source code]. https://gist.github.com/anirudhjayaraman/272e920079fd8cea97f81487ef1e78a3
-
+#Task 3
 class Node(object):
   def __init__(self, node):
-    self.node = node
-    self.connections = []
-    self.distance = []
+    if node > 0:
+      self.node = node
+      self.connections = []
+      self.distance = []
         
   def connection_insert(self, connection, distance):
     if isinstance(connection, Node):
@@ -52,17 +53,18 @@ class Graph(object):
   def isPath(self, start, finish, path=None):
     if path == None:
       path=[]
-    graph=self.nodes
-    path = path + [start]
+    path.append(start)
     if start==finish:
       return path
-    if start not in graph:
-      return False
-    for node in graph[start]:
+    if start not in self.nodes or finish not in self.nodes:
+      return("At least one of the nodes is not in the graph")
+    for node in self.nodes[start]:    # iterates through the connected nodes
       if node not in path:
         extendPath = self.isPath(node, finish, path)
-        if extendPath: return extendPath
-    return False
+        if extendPath: return extendPath    # returns the path only if the path is found
+    return False    # if the path is not found, it returns False
+    
+#Task 5
     
   def depthFirstSearch(self, vertex):
     Stack=[]
@@ -92,6 +94,8 @@ class Graph(object):
           Queue.append(node)
     return visited 
 
+#Task 4
+  
   #Function that indicates if the graph is strongly connected
   def isConnected(self):
     NodesInTheGraph=self.listOfTheNodes()
@@ -101,6 +105,8 @@ class Graph(object):
       return("Yes")
     else:
       return("No")
+    
+#Task 6
     
   def dijkstra(self, source, destination):
     current = source
