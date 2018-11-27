@@ -5,7 +5,7 @@ traversed path as well as indicates if the word exists in the tree.
 The programme provides a menu for its users.'''
 
 #[Source code].http://cumoodle.coventry.ac.uk/
-
+#Task 1
 class BinTreeNode(object):
   def __init__(self, value):
     self.value=value
@@ -30,7 +30,7 @@ def tree_insert(tree, item):
 
 #Function that returns the words in a string and their occurrences
 def occurrences(words):
-  frequencies = dict()
+  frequencies = dict() 
   for word in words:
     if word in frequencies.keys():
       frequencies[word] += 1
@@ -61,6 +61,7 @@ def tree_find(tree, target):
       tempTree = tempTree.right
   return(path + "\nno")
 
+#Task 2
 def minValue(tree): 
   while(tree.left is not None): 
     tree = tree.left 
