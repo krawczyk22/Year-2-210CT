@@ -5,6 +5,7 @@ algorithms. The programme provides a menu for its users.'''
 
 #[Source code]. https://gist.github.com/anirudhjayaraman/272e920079fd8cea97f81487ef1e78a3
 #Task 3
+#definig the class Node with its connections to other nodes and their weights 
 class Node(object):
   def __init__(self, node):
     if node > 0:
@@ -12,6 +13,7 @@ class Node(object):
       self.connections = []
       self.distance = []
         
+#Function that connects the nodes and adds the weights
   def connection_insert(self, connection, distance):
     if isinstance(connection, Node):
       if connection.node not in self.connections:
@@ -22,6 +24,7 @@ class Node(object):
       else: 
         print("The value is not an instance of the class")
 
+#Defining the Graph class
 class Graph(object):
   def __init__(self):
     self.nodes = {}
@@ -29,7 +32,7 @@ class Graph(object):
 
   def add_to_graph(self, nodes):
     for vertex in nodes:
-      self.nodes[vertex.node] = vertex.connections          
+      self.nodes[vertex.node] = vertex.connections    #adding corresponding nodes and distances to the graph      
       self.distances[vertex.node] = vertex.distance
       
   # Function that returns the whole graph (its nodes, connections and corresponding to them distances)
@@ -66,6 +69,7 @@ class Graph(object):
     
 #Task 5
     
+#Function that implements the Depth-First Search algorithm
   def depthFirstSearch(self, vertex):
     Stack=[]
     visited=[]
@@ -80,6 +84,7 @@ class Graph(object):
           Stack.append(node)
     return visited
     
+#Function that implements the Breadth-First Search algorithm
   def breadthFirstSearch(self, vertex):
     Queue=[]
     visited=[]
@@ -98,9 +103,9 @@ class Graph(object):
   
   #Function that indicates if the graph is strongly connected
   def isConnected(self):
-    NodesInTheGraph=self.listOfTheNodes()
-    NumberOfVisitedNodes=len(self.breadthFirstSearch(NodesInTheGraph[0]))
-    NumberOfAllNodes=len(NodesInTheGraph)
+    NodesInTheGraph=self.listOfTheNodes()    #assigning the list of all of the nodes from the Graph
+    NumberOfVisitedNodes=len(self.breadthFirstSearch(NodesInTheGraph[0]))    #assigning the number of nodes returned from the BFS function
+    NumberOfAllNodes=len(NodesInTheGraph)    #assigning the number of all nodes in the graph
     if NumberOfAllNodes == NumberOfVisitedNodes:
       return("Yes")
     else:
@@ -121,7 +126,7 @@ class Graph(object):
     while current != destination:
       index = 0
       for vertex in self.nodes[current]: 
-        if dictionary[current] + self.distances[current][index] < dictionary[vertex]:  
+        if dictionary[current] + self.distances[current][index] < dictionary[vertex]:
           dictionary[vertex] = dictionary[current] + self.distances[current][index]    #updating the traversal values
           previousNodes[vertex] = previousNodes[current] + [current]     #keeping track on the previous node
           index+=1
@@ -186,6 +191,7 @@ if __name__ == '__main__':
   i.connection_insert(h, 6)
   i.connection_insert(f, 3)
 
+  #Defining the Graph
   g = Graph()
   g.add_to_graph([a,b,c,d,e,f,h,i])
 
