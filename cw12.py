@@ -14,16 +14,16 @@ class BinTreeNode(object):
               
 def tree_insert(tree, item):
   if tree==None:
-    tree=BinTreeNode(item)
+    tree=BinTreeNode(item)    #definig the roof of the tree
   else:
     if(item < tree.value):
       if(tree.left==None):
-        tree.left=BinTreeNode(item)
+        tree.left=BinTreeNode(item)    #adding the node to the left leaf if the leaf is empty
       else:
         tree_insert(tree.left,item)
     else:
       if(tree.right==None):
-        tree.right=BinTreeNode(item)
+        tree.right=BinTreeNode(item)    #adding the node to the right leaf if the leaf is empty
       else:
         tree_insert(tree.right,item)
   return tree
@@ -33,11 +33,12 @@ def occurrences(words):
   frequencies = dict() 
   for word in words:
     if word in frequencies.keys():
-      frequencies[word] += 1
+      frequencies[word] += 1    #incrementing the number if a word is found in a tree
     else:
       frequencies[word] = 1
   return frequencies
   
+#Function that prints the tree in a pre order
 def pre_order(tree):
   print(tree.value)
   if(tree.left!=None):
@@ -52,16 +53,18 @@ def tree_find(tree, target):
   while tempTree != None:
     if tempTree.value == target:
       path = path + str(tempTree.value) + " "
-      return(path + "\nyes")
+      return(path + "\nyes")    #returns the path and indicates that the word is found
     elif tempTree.value > target:  
       path = path + str(tempTree.value) + " "
       tempTree = tempTree.left
     else:
       path = path + str(tempTree.value) + " "
       tempTree = tempTree.right
-  return(path + "\nno")
+  return(path + "\nno")    #returns the path and indicates that the word is not found
 
 #Task 2
+
+#Function that finds the minimum value in a tree/subtree
 def minValue(tree): 
   while(tree.left is not None): 
     tree = tree.left 
@@ -72,7 +75,7 @@ def minValue(tree):
 def delete_node(tree, value):
   if tree is None: 
         return tree
-  else:
+  else:        #iterating over the tree until the node is found
     if (value < tree.value): 
       tree.left = delete_node(tree.left, value) 
     elif (value > tree.value):
@@ -96,12 +99,12 @@ if __name__ == '__main__':
   
   try:
     f = open("words.txt", "r")
-    string = f.read().split()  
+    string = f.read().split()    #opening the file, taking the values it contains and splitting them into a list
     f.close()
     
     t=tree_insert(None,string[0]);    #definig the root of the tree
     for word in range(1,len(string)):
-      tree_insert(t,string[word])   
+      tree_insert(t,string[word])   #iterating over the elements and adding them to the tree
           
   except IndexError: print("The file does not have any values")   
     
@@ -118,8 +121,8 @@ if __name__ == '__main__':
     
     try:
       answer=int(input(""))
-    except ValueError: 
-      print("You cannot enter no-integer values")
+    except ValueError:     #omitting non-integer values
+      print("You cannot enter non-integer values")
       answer=6
 
     if answer == 1:
@@ -143,6 +146,7 @@ if __name__ == '__main__':
       
     else: print("There is no such option")
       
+#REFERENCES
 '''********************************************************************
 * Title: Binary Search Tree in Python
 * Author: Coventry University
