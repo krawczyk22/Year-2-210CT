@@ -4,33 +4,35 @@ prints the tree in the pre-order, deletes nodes and finds words and prints the
 traversed path as well as indicates if the word exists in the tree.
 The programme provides a menu for its users.'''
 
+from collections import OrderedDict 
+
 #[Source code].http://cumoodle.coventry.ac.uk/
 #Task 1
-class BinTreeNode(object):
+class BinaryTreeNode(object):
   def __init__(self, value):
     self.value=value
     self.left=None
     self.right=None
               
-def tree_insert(tree, item):
+def tree_insert(tree, node):
   if tree==None:
-    tree=BinTreeNode(item)    #definig the roof of the tree
+    tree=BinaryTreeNode(node)    #definig the roof of the tree
   else:
-    if(item < tree.value):
-      if(tree.left==None):
-        tree.left=BinTreeNode(item)    #adding the node to the left leaf if the leaf is empty
+    if node < tree.value:
+      if tree.left==None:
+        tree.left=BinaryTreeNode(node)    #adding the node to the left leaf if the leaf is empty
       else:
-        tree_insert(tree.left,item)
+        tree_insert(tree.left,node)
     else:
-      if(tree.right==None):
-        tree.right=BinTreeNode(item)    #adding the node to the right leaf if the leaf is empty
+      if tree.right==None:
+        tree.right=BinaryTreeNode(node)    #adding the node to the right leaf if the leaf is empty
       else:
-        tree_insert(tree.right,item)
+        tree_insert(tree.right,node)
   return tree
 
 #Function that returns the words in a string and their occurrences
 def occurrences(words):
-  frequencies = dict() 
+  frequencies = OrderedDict() 
   for word in words:
     if word in frequencies.keys():
       frequencies[word] += 1    #incrementing the number if a word is found in a tree
@@ -82,17 +84,17 @@ def delete_node(tree, value):
       tree.right = delete_node(tree.right, value) 
     else:
       if tree.left is None : 
-        temp = tree.right  #storing the right subtree in a temporary variable
+        temporary_subtree = tree.right  #storing the right subtree in a temporary variable
         tree = None    #deleting the current node
-        return temp    #returning the stored subtree
+        return temporary_subtree    #returning the stored subtree
       elif tree.right is None : 
-        temp = tree.left  
-        tree = None
-        return temp 
+        temporary_subtree = tree.left  #storing the left subtree in a temporary variable
+        tree = None    #deleting the current node
+        return temporary_subtree     #returning the stored subtree
       else:
-        temp = minValue(tree.right)  #finding the minimum value in the subtree
-        tree.value = temp.value    #assigning the value to the current value in the tree
-        tree.right = delete_node(tree.right , temp.value)      #deleting the minimum found value from the subtree
+        temporary_subtree = minValue(tree.right)  #finding the minimum value in the subtree
+        tree.value = temporary_subtree.value    #assigning the value to the current value in the tree
+        tree.right = delete_node(tree.right , temporary_subtree.value)      #deleting the minimum found value from the subtree
     return tree
     
 if __name__ == '__main__':
