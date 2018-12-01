@@ -12,6 +12,7 @@ class Node(object):
       self.node = node
       self.connections = []
       self.distance = []
+    else: pass
         
 #Function that connects the nodes and adds the weights
   def connection_insert(self, connection, distance):
@@ -52,6 +53,7 @@ class Graph(object):
       listOfNodes.append(key)
     return listOfNodes  
     
+#[Source code]. https://www.python.org/doc/essays/graphs/
   #Function that returns the path traversed between two nodes
   def isPath(self, start, finish, path=None):
     if path == None:
@@ -84,6 +86,7 @@ class Graph(object):
           Stack.append(node)
     return visited
     
+#[Source code]: http://cumoodle.coventry.ac.uk/
 #Function that implements the Breadth-First Search algorithm
   def breadthFirstSearch(self, vertex):
     Queue=[]
@@ -139,7 +142,7 @@ class Graph(object):
           minimum = dictionary[node]
     previousNodes[destination] += [destination]
     
-    print("The smallest weight is: " + str(dictionary[destination]) + 
+    return("The smallest weight is: " + str(dictionary[destination]) + 
           "\nThe path traversed is: " + str(previousNodes[destination]))   #returning the weight of the path traversed
       
 # Executing the class functions
@@ -165,7 +168,7 @@ def bfs(g,v):
   f.close
   
 def dijkstra(source, destination):
-  g.dijkstra(source, destination)
+  print(g.dijkstra(source, destination))
   
 if __name__ == '__main__':  
   
@@ -247,6 +250,7 @@ if __name__ == '__main__':
 
     else: print("There is no such option")
       
+#REFERENCES
 '''********************************************************************
 * Title: Implementing Undirected Graphs in Python
 * Author: anirudhjayaraman
@@ -260,3 +264,12 @@ if __name__ == '__main__':
 * Date: 2018
 * Availability: http://cumoodle.coventry.ac.uk/
 ***********************************************************************''' 
+
+'''********************************************************************
+* Title: Python Patterns - Implementing Graphs
+* Author: python.org
+* Date: 2018
+* Availability: https://www.python.org/doc/essays/graphs/
+***********************************************************************''' 
+
+
